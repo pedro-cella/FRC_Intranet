@@ -8,6 +8,8 @@ services:
       mynetwork:
         ipv4_address: 192.168.10.2
     hostname: machine2
+    volumes:
+      - ./config/:/etc/*
 
   machine3:
     build:

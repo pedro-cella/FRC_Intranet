@@ -46,7 +46,7 @@ CMD tail -f /dev/null
 **5-** Execute o comando a seguir para construir as imagens e iniciar os containers:
 
 ```bash
-docker-compose up -d
+docker-compose up --build -d
 ```
 
 Aguarde até que os containers sejam criados e iniciados. Eles serão nomeados como nomedopdiretório_machine1_1 e nomedopdiretório_machine2_1
@@ -152,6 +152,7 @@ services:
       mynetwork:
         ipv4_address: 192.168.10.2
     hostname: machine2
+    
 
 networks:
   mynetwork:
@@ -172,3 +173,125 @@ docker-compose up -d
 <b>OBS: </b>O comando dnsdomainname não está disponível dentro dos contêineres Docker. No contexto dos contêineres, não existe um domínio configurado da mesma forma que em um sistema operacional completo.
 
 Os contêineres Docker são isolados e têm seu próprio namespace de rede. Eles não estão cientes dos domínios configurados fora do contêiner. Portanto, ao executar o comando dnsdomainname dentro de um contêiner, ele não retornará nada.
+
+## **Configurando o DNS no docker**
+
+**9-** Altere o arquivo resolv.conf:
+
+Entre no container criado:
+
+```
+docker exec -it dns_machine2_1 /bin/bash/
+```
+
+Digite:
+
+```bash
+vi /etc/resolv.conf
+```
+Dentro do resolv.conf, escreva:
+
+```bash
+nameserver 127.0.0.11
+options edns0 trust-ad ndots:0
+domain queropassar.com
+nameserver 192.168.10.2
+nameserver 192.168.10.3
+```
+
+**10-** Altere os arquivos named.conf.local
+
+Acesse:
+
+```bash
+cd /etc/bind/
+```
+Inicie alterando o arquivo named.conf.local
+
+```bash
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+zone "queropassar.com" in {
+   type master;
+   file "/etc/bind/db.queropassar";
+};
+# Zona para dns reverso
+zone "10.168.192.in-addr.arpa" in {
+    type master;
+    file "/etc/bind/db.queroreprovar";
+};
+```
+
+Depois crie os arquivos db.dns e db.dnsreverse, com seus respectivos nomes:
+
+Primeiro o db.dns:
+
+```bash
+# Cada definição de master deve se iniciar com uma entrada SOA
+# Ela indica o servidor de nomes para o domínio em questão e parâmetros de operação
+@ IN SOA flpp.queropassar.com. root.flpp.queropassar.com. (
+2022092601 ;numero serial - deve ser incrementado a cada mudança neste arquivo
+21600 ;refresh - das informa��ões para slaves
+1800 ;retry �~@~S tempo entre as tentativas
+604800 ;expire - tempo para se desistir de contactar master
+86400 ) ;mí nimo - tempo a manter a informação no cache (TTL)
+IN NS flpp.queropassar.com.
+queropassar.com. IN MX 10 FERNANDO.queropassar.com. ;entrada MX (mail server)
+localhost IN A 127.0.0.1
+machine2 IN A 192.168.10.2
+machine3 IN A 192.168.10.3
+flpp IN A 192.168.10.66
+FERNANDO IN A 192.168.10.100
+```
+
+Primeiro o db.dnsreverse:
+
+```bash
+# Realiza a resolução reversa
+# O tipo PTR significa um alias para o endereço IP
+@ IN SOA flpp.queropassar.com. root.flpp.queropassar.com. (
+2022092601
+21600
+1800
+604800
+86400 )
+IN NS flpp.queropassar.com.
+2 IN PTR machine2.queropassar.com.
+3 IN PTR machine3.queropassar.com.
+66 IN PTR flpp.queropassar.com.
+100 IN PTR FERNANDO.queropassar.com.
+```
+
+**11-** Rode o comando para fazer as mudanças realizadas:
+
+```bash
+/etc/init.d/bind9 start
+```
+
+ou 
+
+```bash
+sudo /usr/sbin/named -f -g -d 1
+```
+
+Esse segundo comando serve para rodar mostrando o que está sendo feito durante o processo.
+
+**12-** Testando o DNS
+
+Rode:
+
+```bash
+nslookup
+```
+
+Consulte:
+
+```bash
+server <nome ou IP>
+```
+
