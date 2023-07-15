@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  machine2:
+    build:
+      context: .
+    networks:
+      mynetwork:
+        ipv4_address: 192.168.10.2
+    hostname: machine2
+
+  machine3:
+    build:
+      context: .
+    networks:
+      mynetwork:
+        ipv4_address: 192.168.10.3
+    hostname: machine3
+
+networks:
+  mynetwork:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.10.0/24
