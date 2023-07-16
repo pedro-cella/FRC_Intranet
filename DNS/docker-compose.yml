@@ -1,23 +1,23 @@
 version: '3'
 
 services:
-  machine2:
+  machine1:
+    container_name: machine1
     build:
       context: .
     networks:
       mynetwork:
         ipv4_address: 192.168.10.2
-    hostname: machine2
-    volumes:
-      - ./config/:/etc/*
+    hostname: machine1
 
-  machine3:
+  machine2:
+    container_name: machine2
     build:
       context: .
     networks:
       mynetwork:
         ipv4_address: 192.168.10.3
-    hostname: machine3
+    hostname: machine2
 
 networks:
   mynetwork:
