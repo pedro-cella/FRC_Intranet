@@ -1,0 +1,5 @@
+# Configuração do Postfix
+myhostname = chmod.com.br
+mydestination = chmod.com.br, localhost.localdomain, localhost
+mynetworks = 127.0.0.0/8
+inet_interfaces = all
