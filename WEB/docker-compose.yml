@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  machine11:
+    container_name: machine11
+    build:
+      context: .
+    ports: 
+      - 1234:80
+    networks:
+      paulocovid:
+        ipv4_address: 192.168.11.2
+
+  machine22:
+    container_name: machine22
+    build:
+      context: .
+    ports:
+      - 2345:80
+    networks:
+      paulocovid:
+        ipv4_address: 192.168.11.3
+
+networks:
+  paulocovid:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.11.0/24

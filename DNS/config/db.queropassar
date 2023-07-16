@@ -1,0 +1,15 @@
+# Cada definição de master deve se iniciar com uma entrada SOA
+# Ela indica o servidor de nomes para o domínio em questão e parâmetros de operação
+@                   IN SOA flpp.queropassar.com. root.flpp.queropassar.com. (
+    2022092601 ;numero serial - deve ser incrementado a cada mudança neste arquivo
+    21600 ;refresh - das informações para slaves
+    1800 ;retry – tempo entre as tentativas
+    604800 ;expire - tempo para se desistir de contactar master
+    86400 ) ;mínimo - tempo a manter a informação no cache (TTL)
+                    IN NS FERNANDO.queropassar.com.
+queropassar.com.    IN MX 10 FERNADO.queropassar.com ;entrada MX (mail server)
+localhost           IN A 127.0.0.1
+machine1            IN A 192.168.10.2
+machine2            IN A 192.168.10.3
+flpp                IN A 192.168.10.66
+FERNANDO            IN A 192.168.10.100

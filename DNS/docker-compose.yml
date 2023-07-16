@@ -8,7 +8,6 @@ services:
     networks:
       mynetwork:
         ipv4_address: 192.168.10.2
-    hostname: machine1
 
   machine2:
     container_name: machine2
@@ -17,7 +16,6 @@ services:
     networks:
       mynetwork:
         ipv4_address: 192.168.10.3
-    hostname: machine2
 
 networks:
   mynetwork:

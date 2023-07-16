@@ -1,0 +1,15 @@
+# Cada zona é declarada como abaixo. os tipos são:
+# primary-master: contém um cópia master dos dados da zona
+# secondary-slave: replicas de uma master
+# hint: aponta para os servidores root
+# A opção “file” indica qual é o arquivo que contém os dados
+# da zona “starwars” da classe IN (Internet)
+zone "queropassar.com" in {
+    type master;
+    file "/etc/bind/db.queropassar";
+};
+# Zona para dns reverso
+zone "10.168.192.in-addr.arpa" in {
+    type master;
+    file "/etc/bind/db.queroreprovar";
+};
