@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>CHMOD</h1>
+    <h2>DHCP</h2>
+    <h3>3) Se colocarmos mais de um servidor DHCP na rede, o que pode acontecer? </h3>
+    <p>Ao colocar mais de um servidor DHCP na rede corre o risco de ter conflitos e problemas de entrega de endereços IP. Isso ocorre porque cada servidor DHCP é configurado para entregar endereços IP de forma autônoma, sem consultar outros servidores DHCP na rede.</p>
+    <h2>DNS</h2>
+    <h3>1) Qual é o retorno do comando dnsdomainname? O que significa?</h3>
+    <p>O retorno é .com.br, significa o nome do domínio do dns</p>
+    <h3>2) O que é nome localhost? E o endereço 127.0.0.1 dado a ele no arquivo /etc/hosts? Porque deve sempre existir este endereço e nome em sistemas UNIX/Linux?</h3>
+    <p>É o nome do domínio dado ao dispositivo utilizado para acessar o mesmo. É o endereço IPv4 padrão atribuído ao localhost. Para ser utilizado no loopback para achar serviços.</p>
+    <h3>3) O que é o FQDN?</h3>
+    <p>Fully Qualified Domain Name. Se refere ao conjunto do hostname com o dnsdomainname (Ex.: chmod.com.br)</p>
+    <h3>4) Podemos ter 2 servidores DNS na mesma rede? Qual é a configuração mais adequada para esta situação?</h3>
+    <p>Sim, basta criar um condicional forwarder em cada um dos DNS da rede, encaminhando as requisições para o outro</p>
+    <h3>5) O que é DNS reverso? Como isto foi implementado no lab?</h3>
+    <p>DNS reverso acontece quando é feita uma consulta de DNS para descobrir qual o nome de domínio associado a um endereço de IP, ao contrário do padrão, onde é enviado um nome de domínio para se obter um endereço IP. Foi configurado da seguinte forma:</p>
+    <ul>
+        <li>Foi configurado o servidor de DNS</li>
+        <li>Foi criado um arquivo de zona reverso </li>
+        <li>Adição de registros PTR usando in-addr.arpa.</li>
+        <li>Recarregamento do servidor de DNS</li>
+        <li>Configuração do sistema cliente</li>
+    </ul>
+    <h3>6) O que é a entrada MX inserida no domínio? Podem haver mais de uma?</h3>
+    <p>É um registro DNS que especifica qual é o servidor de e-mail responsável por receber e enviar mensagens de e-mail para um determinado domínio. Sim, é possível ter mais de uma entrada MX para um mesmo domínio.</p>
+    <h3>7) O que é resposta autoritativa dada por um servidor DNS? Explique.</h3>
+    <p>Uma resposta autoritativa é uma resposta dada por um servidor DNS que tem autoridade completa sobre um domínio específico e fornece informações precisas e confiáveis sobre os registros de nomes de domínio nesse domínio. Isso é geralmente oposto a uma resposta não autoritativa, que é fornecida por um servidor DNS intermediário que não tem autoridade completa sobre o domínio</p>
+    <h3>8) O que é um servidor caching-only?</h3>
+    <p> É um servidor DNS que não é autoritativo para nenhum domínio, mas apenas armazena em cache as consultas DNS que já foram realizadas. Isso significa que, quando um cliente solicita informações sobre um domínio, o servidor caching-only verifica primeiro se já tem as informações em cache e, caso não as tenha, realiza uma consulta a outro servidor DNS autoritativo.</p>
+    <h2>SMTP</h2>
+    <h3>2) Qual a diferença entre o armazenamento de e-mails no formato mbox e maildir?</h3>
+    <p>O formato mbox é um formato antigo e comum de armazenamento de e-mails que consiste em um único arquivo que contém todas as mensagens da caixa de correio. Pelo fato de usar apenas um arquivo para armazenar as mensagens, esse formato acaba tendo problemas com o processamento de mensagens quando o tamanho do arquivo fica muito grande.</p>
+    <p>Já o formato maildir é mais recente e é uma alternativa ao formato mbox. Em vez de armazenar todas as mensagens em um único arquivo, o formato maildir armazena cada mensagem em um arquivo separado. Isso permite uma gestão mais fácil das mensagens e uma recuperação mais rápida de mensagens específicas, além de melhorar o desempenho em geral.</p>
+    <h3>3) Para que servem os esquemas de autenticação SASL/TLS?</h3>
+    <p>O SASL é usado para autenticar clientes que estão tentando se conectar a um servidor. Ele fornece uma camada de segurança adicional ao estabelecer uma conexão segura entre o cliente e o servidor, garantindo que apenas usuários autenticados possam acessar os recursos do servidor.</p>
+    <p>Já o TLS é um protocolo de segurança para a camada de transporte, que criptografa as informações transmitidas entre o cliente e o servidor, garantindo que não possam ser lidas por terceiros durante a transmissão.</p>
+    <h3>4) Qual é a diferença entre os formatos RFC822 e MIME types definido para e-mails? Explicá-los</h3>
+    <p>O RFC 822 fornece uma estrutura básica para mensagens de e-mail, enquanto o MIME permite a inclusão de recursos adicionais e a codificação de informações mais complexas. A maioria dos sistemas de correio eletrônico modernos usam o formato MIME para codificar mensagens de e-mail.<br>
+        O formato RFC 822 define os campos obrigatórios, como "De", "Para" e "Assunto", e fornece uma maneira padrão de formatar e enviar mensagens de e-mail.<br>
+        Já o MIME permite que os remetentes incluam informações adicionais, como arquivos anexos e tipos de conteúdo diferentes, além de texto simples.
+    </p>
+    <h2>HTTP</h2>
+    <h3>4) O que são Server Side Includes (SSI)? Promova alguma alteração no servidor mostrando a funcionalidade desse mecanismo.</h3>
+    <p>Server Side Includes (SSI) é uma técnica de programação web que permite a inserção dinâmica de conteúdo em páginas HTML no lado do servidor, antes de serem enviadas ao navegador. Os SSI são especificados em páginas HTML como diretivas especiais incluídas em comentários, que são processadas pelo servidor web antes de enviar a página para o navegador. Com SSI, é possível incluir arquivos externos, como cabeçalhos e rodapés, em várias páginas, evitando a necessidade de atualizar manualmente cada página individualmente. Além disso, é possível usar SSI para exibir informações dinâmicas, como a data e hora atuais, em uma página.</p>
+    <h3>5) Quais são os mecanismos implementados por um servidor Web para conseguir atender tantas conexões simultaneamente? Se houver diretivas de configuração, relacioná-las aqui.</h3>
+    <p>Os servidores web geralmente implementam dois mecanismos para lidar com múltiplas conexões simultaneamente: processamento por threads (cada solicitação de cliente é atendida por uma thread separada, permitindo que o servidor trate múltiplas solicitações ao mesmo tempo) e processamento por eventos (o servidor mantém uma lista de eventos e os processa em ordem, sem bloquear ou interromper outros eventos. É usado por servidores web de alta performance, como o NGINX, para gerenciar uma grande quantidade de conexões de maneira eficiente). <br>
+        Além disso, outros mecanismos, como o balanceamento de carga e o cache de conteúdo, também são usados para ajudar a lidar com grandes quantidades de tráfego e melhorar a performance do servidor web.</p>
+    <h3>6) Explique qual é a utilidade e como funciona um proxy server no caso do protocolo HTTP.</h3> 
+    <p>Um servidor proxy é um intermediário entre um cliente e um servidor remoto. Ele atua como um intermediário para requisições de clientes que procuram recursos de outros servidores. No caso do protocolo HTTP, um servidor proxy pode ser usado para vários fins, incluindo: Cache de conteúdo, Filtro de conteúdo, Ocultação de endereços IP, Balanceamento de carga.</p>
+    <h3>7) Qual é a relação entre o protocolo MIME e o serviço WEB?</h3>
+    <p>O protocolo MIME (Multipurpose Internet Mail Extensions) é amplamente utilizado no serviço web para especificar o tipo de conteúdo que está sendo transmitido entre um servidor web e um cliente. Quando um cliente faz uma solicitação a um servidor web, o servidor envia uma resposta que inclui informações sobre o tipo de conteúdo na resposta, como texto, imagens, vídeos, etc. <br>
+        Desta forma, o protocolo MIME permite que o servidor web informe ao cliente sobre o tipo de conteúdo que está sendo transmitido, permitindo que o cliente exiba o conteúdo corretamente. Além disso, o protocolo MIME também permite que o servidor web transmita vários tipos de conteúdo em uma única resposta, como texto, imagens e arquivos anexados, tornando possível a construção de páginas web ricas e interativas.</p>
+</body>
+</html> 

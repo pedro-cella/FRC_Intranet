@@ -6,7 +6,7 @@ services:
     build:
       context: .
     ports: 
-      - 1234:80
+      - 80:80
     networks:
       paulocovid:
         ipv4_address: 192.168.11.2
@@ -16,7 +16,7 @@ services:
     build:
       context: .
     ports:
-      - 2345:80
+      - 8080:80
     networks:
       paulocovid:
         ipv4_address: 192.168.11.3
