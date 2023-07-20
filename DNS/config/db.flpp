@@ -1,0 +1,12 @@
+@                   IN SOA server.flpp.com. root.server.flpp.com. (
+                    2022092601
+                    21600
+                    1800 
+                    604800 
+                    86400 ) 
+                    IN NS server.flpp.com.
+flpp.com.           IN MX 10 mail.flpp.com 
+localhost           IN A 127.0.0.1
+server              IN A 192.168.10.2
+mail                IN A 192.168.10.3
+client              IN A 192.168.10.4

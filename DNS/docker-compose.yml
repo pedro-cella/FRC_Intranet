@@ -1,21 +1,29 @@
 version: '3'
 
 services:
-  machine1:
-    container_name: machine1
+  server:
+    container_name: server
     build:
       context: .
     networks:
       mynetwork:
         ipv4_address: 192.168.10.2
 
-  machine2:
-    container_name: machine2
+  mail:
+    container_name: mail
     build:
       context: .
     networks:
       mynetwork:
         ipv4_address: 192.168.10.3
+
+  client:
+    container_name: client
+    build:
+      context: .
+    networks:
+      mynetwork:
+        ipv4_address: 192.168.10.4
 
 networks:
   mynetwork:

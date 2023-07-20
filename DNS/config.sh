@@ -1,5 +1,8 @@
-cat ./resolv >> /etc/resolv.conf
+cat ./resolv.conf >> /etc/resolv.conf
+
 cat ./hosts >> /etc/hosts
+
 cat ./named.conf.local > /etc/bind/named.conf.local
-cat ./db.queropassar > /etc/bind/db.queropassar
-cat ./db.queroreprovar > /etc/bind/db.queroreprovar
+
+cat ./db.flpp > /etc/bind/db.flpp
+cat ./db.pplf > /etc/bind/db.pplf
