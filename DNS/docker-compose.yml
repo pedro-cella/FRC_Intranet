@@ -1,24 +1,24 @@
 version: '3'
 
 services:
-  server:
-    container_name: server
+  dns_server:
+    container_name: dns_server
     build:
       context: .
     networks:
       mynetwork:
         ipv4_address: 192.168.10.2
 
-  mail:
-    container_name: mail
+  dns_mail:
+    container_name: dns_mail
     build:
       context: .
     networks:
       mynetwork:
         ipv4_address: 192.168.10.3
 
-  client:
-    container_name: client
+  dns_client:
+    container_name: dns_client
     build:
       context: .
     networks:

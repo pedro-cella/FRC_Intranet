@@ -1,8 +1,8 @@
 version: '3'
 
 services:
-  machine11:
-    container_name: machine11
+  web_server:
+    container_name: web_server
     build:
       context: .
     ports: 
@@ -11,8 +11,8 @@ services:
       paulocovid:
         ipv4_address: 192.168.11.2
 
-  machine22:
-    container_name: machine22
+  web_client:
+    container_name: web_client
     build:
       context: .
     ports:

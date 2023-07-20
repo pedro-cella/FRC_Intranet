@@ -8,7 +8,7 @@ RUN apt install vim -y
 RUN apt install mailutils -y
 RUN apt install postfix -y
 
-COPY config/* .
+COPY config .
 COPY config.sh .
 RUN chmod +x config.sh
 

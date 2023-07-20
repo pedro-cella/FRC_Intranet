@@ -1,10 +1,10 @@
-@       IN SOA server.flpp.com. root.server.flpp.com. (
+@       IN SOA dns_server.flpp.com. root.dns_server.flpp.com. (
         2022092601
         21600
         1800
         604800
         86400 )
-        IN NS server.flpp.com.
-2       IN PTR server.flpp.com
-3       IN PTR mail.flpp.com
-4       IN PTR client.flpp.com
+        IN NS dns_server.flpp.com.
+2       IN PTR dns_server.flpp.com
+3       IN PTR dns_mail.flpp.com
+4       IN PTR dns_client.flpp.com
